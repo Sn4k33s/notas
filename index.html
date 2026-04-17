@@ -160,27 +160,16 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 /* ==============================  SETUP / CONFIG MODAL  ============================== */
 .setup-overlay{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
 .setup-overlay.hidden{display:none}
-.setup-box{width:100%;max-width:620px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;box-shadow:var(--shadow);animation:modalIn .4s cubic-bezier(.34,1.56,.64,1) both}
+.setup-box{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;box-shadow:var(--shadow);animation:modalIn .4s cubic-bezier(.34,1.56,.64,1) both}
 .setup-box h2{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;margin-bottom:6px;color:var(--text)}
 .setup-box h2 em{color:var(--accent);font-style:normal}
 .setup-subtitle{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
-.steps{display:flex;flex-direction:column;gap:20px;margin-bottom:28px}
-.step{display:flex;gap:16px;align-items:flex-start}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--adim);border:1px solid var(--accent);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-body{flex:1}
-.step-body strong{font-size:.92rem;color:var(--text);display:block;margin-bottom:4px}
-.step-body p{font-size:.78rem;color:var(--text2);line-height:1.5;margin-bottom:8px}
-.step-body a{color:var(--accent);text-decoration:none;font-weight:500}
-.step-body a:hover{text-decoration:underline}
-.sql-block{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rs);padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text2);line-height:1.6;position:relative;white-space:pre-wrap;word-break:break-all}
-.copy-sql-btn{position:absolute;top:8px;right:8px;background:var(--accent);border:none;color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:3px 9px;border-radius:5px;cursor:pointer;letter-spacing:.06em;transition:background .2s}
-.copy-sql-btn:hover{background:var(--accent2)}
 .setup-form{display:grid;gap:12px;margin-bottom:24px}
 .setup-form .field label{font-size:.63rem}
 .setup-error{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#d45050;margin-top:-6px;padding:8px 12px;background:rgba(212,80,80,.1);border:1px solid rgba(212,80,80,.2);border-radius:var(--rs);display:none}
 .setup-error.show{display:block}
 .setup-footer{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.setup-note{font-size:.72rem;color:var(--text3);flex:1}
+.setup-note{font-size:.72rem;color:var(--text3);flex:1;line-height:1.6}
 .setup-note strong{color:var(--text2)}
 
 /* Config mini modal */
@@ -218,63 +207,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 <div class="setup-overlay" id="setup-overlay">
   <div class="setup-box">
     <h2>TASK<em>FLOW</em></h2>
-    <p class="setup-subtitle">Configuração inicial — só precisa fazer uma vez</p>
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <strong>Crie sua conta no Supabase (gratuito)</strong>
-          <p>Acesse <a href="https://supabase.com" target="_blank">supabase.com</a> → "Start your project" → crie um novo projeto. Anote a senha que criar.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <strong>Crie as tabelas (cole no SQL Editor)</strong>
-          <p>No painel do Supabase: <strong>SQL Editor → New query</strong> → cole e execute:</p>
-          <div class="sql-block" id="sql-block">create table tf_sections(
-  id text, user_key text, name text, icon text,
-  locked boolean, sort_order int,
-  primary key(id, user_key)
-);
-create table tf_tasks(
-  id bigint, user_key text, title text,
-  description text, link text, category text,
-  priority text, color text, done boolean,
-  section_id text, created_at text,
-  primary key(id, user_key)
-);
-create table tf_notes(
-  id bigint, user_key text, title text,
-  content text, section_id text,
-  created_at text, updated_at text,
-  primary key(id, user_key)
-);</div>
-          <button class="copy-sql-btn" onclick="copySQL()">Copiar</button>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <strong>Copie as credenciais do projeto</strong>
-          <p>No painel do Supabase: <strong>Project Settings → API</strong></p>
-        </div>
-      </div>
-
-    </div>
+    <p class="setup-subtitle">Identificação do usuário</p>
 
     <div class="setup-form">
-      <div class="field">
-        <label>Project URL</label>
-        <input id="cfg-url" type="url" placeholder="https://xxxxxxxxxxxx.supabase.co">
-      </div>
-      <div class="field">
-        <label>Anon / Public Key</label>
-        <input id="cfg-key" type="text" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-      </div>
       <div class="field">
         <label>Sua chave pessoal — use a mesma em todos os dispositivos</label>
         <input id="cfg-userkey" type="text" placeholder="Ex: minha-senha-secreta-2024" autocomplete="off">
@@ -284,8 +219,8 @@ create table tf_notes(
     <div class="setup-error" id="setup-error"></div>
 
     <div class="setup-footer">
-      <p class="setup-note"><strong>Dica:</strong> a "chave pessoal" é como uma senha que identifica seus dados. Ela não precisa ser cadastrada em lugar nenhum — só precisa ser igual em todos os seus dispositivos.</p>
-      <button class="btn-primary" id="cfg-save-btn" onclick="saveConfig()">Conectar →</button>
+      <p class="setup-note"><strong>Dica:</strong> a chave pessoal identifica seus dados. Use sempre a mesma chave em todos os dispositivos para sincronizar.</p>
+      <button class="btn-primary" id="cfg-save-btn" onclick="saveConfig()">Entrar →</button>
     </div>
   </div>
 </div>
@@ -395,6 +330,13 @@ const DEFAULT_SECTIONS = [
   {id:'estudos',name:'Área',icon:'📚',locked:true,sort_order:0},
 ];
 
+// ================================================================
+//  🔧 CONFIGURAÇÕES PRÉ-DEFINIDAS — edite apenas estas duas linhas
+// ================================================================
+const SUPABASE_URL  = 'https://ocdxuzfkrhevighuhuwd.supabase.co';   // ← cole sua Project URL aqui
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jZHh1emZrcmhldmlnaHVodXdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDgxOTUsImV4cCI6MjA5MTY4NDE5NX0.y9DP6yLGUss1UqgmFOZ0DHAjYo7xUsnTKfHbnSJjIuw'; // ← cole seu anon key aqui
+// ================================================================
+
 let sb = null;
 let cfg = {};
 let state = { sections:[], tasks:[], notes:[], activeSection:'estudos', activeSubTab:{}, activeNote:{}, filter:{}, addFormOpen:{} };
@@ -415,45 +357,45 @@ let _toastTimer;
   const saved = localStorage.getItem('tf_cfg');
   if (saved) {
     try { cfg = JSON.parse(saved); } catch(e){}
-    if (cfg.url && cfg.key && cfg.userKey) {
+    if (cfg.userKey) {
+      // Sempre usa as credenciais pré-definidas no código
+      cfg.url = SUPABASE_URL;
+      cfg.key = SUPABASE_ANON;
       document.getElementById('setup-overlay').classList.add('hidden');
       document.getElementById('app').style.display = '';
       initSupabase();
       return;
     }
   }
-  // show setup
+  // Mostra tela de login (só pede a chave pessoal)
 })();
 
 // ================================================================
-//  CONFIG
+//  CONFIG — agora só salva a chave pessoal do usuário
 // ================================================================
 async function saveConfig() {
-  const url = document.getElementById('cfg-url').value.trim();
-  const key = document.getElementById('cfg-key').value.trim();
   const userKey = document.getElementById('cfg-userkey').value.trim();
   const errEl = document.getElementById('setup-error');
   errEl.classList.remove('show');
 
-  if (!url || !key || !userKey) { showSetupError('Preencha todos os campos.'); return; }
-  if (!url.startsWith('https://')) { showSetupError('A URL deve começar com https://'); return; }
+  if (!userKey) { showSetupError('Digite sua chave pessoal.'); return; }
 
   const btn = document.getElementById('cfg-save-btn');
   btn.textContent = 'Conectando...'; btn.disabled = true;
 
   try {
-    const testSB = createClient(url, key);
+    const testSB = createClient(SUPABASE_URL, SUPABASE_ANON);
     const { error } = await testSB.from('tf_sections').select('id').limit(1);
     if (error && error.code !== 'PGRST116') throw error;
 
-    cfg = { url, key, userKey };
+    cfg = { url: SUPABASE_URL, key: SUPABASE_ANON, userKey };
     localStorage.setItem('tf_cfg', JSON.stringify(cfg));
     document.getElementById('setup-overlay').classList.add('hidden');
     document.getElementById('app').style.display = '';
     initSupabase();
   } catch(e) {
-    showSetupError('Erro ao conectar: ' + (e.message || 'verifique URL e chave.'));
-    btn.textContent = 'Conectar →'; btn.disabled = false;
+    showSetupError('Erro ao conectar. Verifique as credenciais no código: ' + (e.message || ''));
+    btn.textContent = 'Entrar →'; btn.disabled = false;
   }
 }
 
@@ -462,23 +404,13 @@ function showSetupError(msg) {
   el.textContent = msg; el.classList.add('show');
 }
 
+// Reconfiguração: permite trocar só a chave pessoal
 function openReconfig() {
-  document.getElementById('cfg-url').value = cfg.url || '';
-  document.getElementById('cfg-key').value = cfg.key || '';
   document.getElementById('cfg-userkey').value = cfg.userKey || '';
   document.getElementById('setup-error').classList.remove('show');
   document.getElementById('cfg-save-btn').textContent = 'Salvar →';
   document.getElementById('cfg-save-btn').disabled = false;
   document.getElementById('setup-overlay').classList.remove('hidden');
-}
-
-function copySQL() {
-  const sql = document.getElementById('sql-block').innerText;
-  navigator.clipboard.writeText(sql).then(() => {
-    const btn = document.querySelector('.copy-sql-btn');
-    btn.textContent = 'Copiado!';
-    setTimeout(() => btn.textContent = 'Copiar', 2000);
-  });
 }
 
 // ================================================================
@@ -518,7 +450,6 @@ async function loadAllData() {
 
   if (secRes.error) throw secRes.error;
 
-  // Merge default sections if user has none
   let sections = secRes.data || [];
   if (sections.length === 0) {
     await Promise.all(DEFAULT_SECTIONS.map(s => sb.from('tf_sections').upsert({...s, user_key: uk})));
@@ -888,7 +819,6 @@ function scheduleNoteSave(noteId) {
   const words = (note.content||'').trim().split(/\s+/).filter(Boolean).length;
   const wEl = document.getElementById(`nt-w-${noteId}`);
   if (wEl) wEl.textContent = `${words} palavras`;
-  // Update list preview live
   const secId = note.section_id;
   const list = document.getElementById(`notes-list-${secId}`);
   if (list) {
